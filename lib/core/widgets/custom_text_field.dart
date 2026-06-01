@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
+  final int? maxLines;
   final String hint;
   final TextEditingController controller;
   const CustomTextField({
     super.key,
     required this.hint,
     required this.controller,
+    this.maxLines,
   });
 
   @override
@@ -17,6 +19,7 @@ class CustomTextField extends StatelessWidget {
         key: key,
         keyboardType: TextInputType.emailAddress,
         controller: controller,
+        maxLines: maxLines,
         style: TextStyle(
           fontSize: 16,
           color: Color(0xFF0F172A),

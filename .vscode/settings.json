@@ -1,0 +1,29 @@
+{
+  "files.exclude": {
+    "**/.DS_Store": false,
+    "**/.git": false,
+    "**/.hg": false,
+    "**/.plugin_symlinks": false,
+    "**/.svn": false,
+    "**/.symlinks": false,
+    "**/flutter/ephemeral": false,
+    "**/Flutter/ephemeral": false,
+    "**/Thumbs.db": false
+  },
+  "files.watcherExclude": {
+    ".git/objects/**": false,
+    ".git/subtree-cache/**": false,
+    ".hg/store/**": false,
+    "**/.dart_tool": false,
+    "*/.git/objects/**": false,
+    "*/.git/subtree-cache/**": false,
+    "*/.hg/store/**": false
+  },
+  "tailwindCSS.files.exclude": [],
+  "search.exclude": {
+    "**/.dart_tool": false,
+    "**/*.code-search": false,
+    "**/bower_components": false,
+    "**/node_modules": false
+  }
+}

@@ -3,9 +3,10 @@ class StudentData {
   final String? lastName;
   final String? phoneNumber;
   final String? school;
+  final String? home;
   final String? photoUrl;
   final String? passportUrl;
-  final String? grade;
+  final int? grade;
   final DateTime? lastUpdated;
 
   StudentData({
@@ -13,6 +14,7 @@ class StudentData {
     this.lastName,
     this.phoneNumber,
     this.school,
+    this.home,
     this.photoUrl,
     this.passportUrl,
     this.grade,
@@ -25,9 +27,10 @@ class StudentData {
       lastName: json['lastName'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
       school: json['school'] as String?,
+      home: json['home'] as String?,
       photoUrl: json['photoUrl'] as String?,
       passportUrl: json['passportUrl'] as String?,
-      grade: json['grade'] as String?,
+      grade: json['grade'] as int?,
       lastUpdated: DateTime.tryParse(json['lastUpdated'] as String? ?? ''),
     );
   }
@@ -40,6 +43,7 @@ class StudentData {
       'lastName': lastName,
       'school': school,
       'phoneNumber': phoneNumber,
+      'home': home,
       'photoUrl': photoUrl,
       'passportUrl': passportUrl,
     };
@@ -52,14 +56,16 @@ class StudentData {
     String? school,
     String? photoUrl,
     String? passportUrl,
-    String? grade,
+    int? grade,
     DateTime? lastUpdated,
+    String? home,
   }) {
     return StudentData(
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       school: school ?? this.school,
+      home: home ?? this.home,
       photoUrl: photoUrl ?? this.photoUrl,
       passportUrl: passportUrl ?? this.passportUrl,
       grade: grade ?? this.grade,

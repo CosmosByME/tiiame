@@ -10,48 +10,50 @@ import 'package:tiiame/presentation/form/view/form_page.dart';
 final router = GoRouter(
   initialLocation: '/',
   // This forces GoRouter to re-run the redirect logic instantly whenever auth state changes
-  // refreshListenable: GoRouterRefreshStream(FirebaseAuth.instance.authStateChanges()),
-  
+  refreshListenable: GoRouterRefreshStream(
+    FirebaseAuth.instance.authStateChanges(),
+  ),
+
   routes: [
-    GoRoute(path: '/', builder: (context, state) => const FormPage()),
+    GoRoute(path: '/', builder: (context, state) => const Scaffold(body: Center(child: Text('Home Page')))),
     GoRoute(path: '/sign-up', builder: (context, state) => const SignUpPage()),
     GoRoute(path: '/log-in', builder: (context, state) => const LogInPage()),
+    GoRoute(path: '/form', builder: (context, state) => const FormPage()),
   ],
-  
-//   redirect: (context, state) {
-//     final loggedIn = FirebaseAuth.instance.currentUser != null;
-    
-//     // Check what type of page the user is trying to access
-//     final isAccessingAuthPage = state.matchedLocation == '/log-in' || state.matchedLocation == '/sign-up';
 
-//     // 1. If not logged in and trying to go to a protected page -> Force Log In
-//     if (!loggedIn && !isAccessingAuthPage) {
-//       return '/log-in';
-//     }
+  redirect: (context, state) {
+    final loggedIn = FirebaseAuth.instance.currentUser != null;
 
-//     // 2. If logged in and trying to access Log In / Sign Up pages -> Send to Home
-//     if (loggedIn && isAccessingAuthPage) {
-//       return '/';
-//     }
+    // Check what type of page the user is trying to access
+    final isAccessingAuthPage =
+        state.matchedLocation == '/log-in' ||
+        state.matchedLocation == '/sign-up';
 
-//     // Keep the current route if no rules are violated
-//     return null;
-//   },
-// );
+    // 1. If not logged in and trying to go to a protected page -> Force Log In
+    if (!loggedIn && !isAccessingAuthPage) {
+      return '/sign-up';
+    }
 
+    // 2. If logged in and trying to access Log In / Sign Up pages -> Send to Home
+    if (loggedIn && isAccessingAuthPage) {
+      return '/';
+    }
 
-
-// class GoRouterRefreshStream extends ChangeNotifier {
-//   late final StreamSubscription<dynamic> _subscription;
-
-//   GoRouterRefreshStream(Stream<dynamic> stream) {
-//     _subscription = stream.listen((_) => notifyListeners());
-//   }
-
-//   @override
-//   void dispose() {
-//     _subscription.cancel();
-//     super.dispose();
-//   }
-
+    // Keep the current route if no rules are violated
+    return null;
+  },
 );
+
+class GoRouterRefreshStream extends ChangeNotifier {
+  late final StreamSubscription<dynamic> _subscription;
+
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    _subscription = stream.listen((_) => notifyListeners());
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+}

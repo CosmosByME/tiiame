@@ -42,7 +42,7 @@ class _NameSurnameSelectingState extends State<NameSurnameSelecting>
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          "Ism va familiyani kiriting",
+          "O'quvchining ism va familiyasini kiriting",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           textAlign: TextAlign.start,
         ),

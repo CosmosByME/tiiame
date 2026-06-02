@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:tiiame/config.dart';
+import 'package:tiiame/core/toasts/error_toast.dart';
 
 class DriveStorageService {
   static const _url    = 'https://script.google.com/macros/s/AKfycbzq6_9WPAueYIkkJBYgFE5-gVeBC6K0jkPHWPYkULBIQ_zUKCIGcZZgsi5xvqeuJK2hcg/exec';
@@ -41,7 +41,8 @@ static Future<String?> uploadFile({
   final body = jsonDecode(res.body);
   return body['url'];
 }  catch (e) {
-  debugPrint('❌ DriveStorageService error: $e');
+  showErrorToast(e.toString());
+  rethrow;
 }
 }
 

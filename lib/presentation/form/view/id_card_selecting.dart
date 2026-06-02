@@ -24,7 +24,6 @@ class _IdCardSelectingState extends State<IdCardSelecting>
   @override
   bool get wantKeepAlive => true;
 
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -33,12 +32,12 @@ class _IdCardSelectingState extends State<IdCardSelecting>
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          "Oxirgi 2 oy davomida tushgan fotosuratingizni joylang",
+          "O'quvchining tug'ilganlik guvohnomasini yoki ID kartasini yuklang",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           textAlign: TextAlign.start,
         ),
         SizedBox(height: 16),
-    
+
         SizedBox(height: 16),
         SizedBox(
           width: 400,

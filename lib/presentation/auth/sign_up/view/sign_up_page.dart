@@ -40,9 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return BlocListener<SignupBloc, SignupState>(
       listener: (context, state) {
         if (state.isSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Muvaffaqiyatli ro'yxatdan o'tildi!")),
-          );
+          context.pushReplacement("/form");
         }
       },
       child: Scaffold(

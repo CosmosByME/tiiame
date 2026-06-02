@@ -63,7 +63,7 @@ class _PhoneNumberSelectingState extends State<PhoneNumberSelecting>
               onPressed: (phoneNumberController.text.length < 12)
                   ? null
                   : () async {
-                      context.read<FormBloc>().add(PhoneNumberChanged(phoneNumberController.text));
+                      context.read<FormBloc>().add(PhoneNumberChanged("+998-${phoneNumberController.text}"));
                       widget.onNext?.call();
                     },
               text: "Keyingisi",

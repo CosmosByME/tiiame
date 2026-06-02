@@ -22,46 +22,55 @@ class _GradeSelectingState extends State<GradeSelecting>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          "Qaysi sinf uchun xujjat topshirmoqchisiz?",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-          textAlign: TextAlign.start,
-        ),
-        SizedBox(height: 16),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final dropdownWidth = constraints.maxWidth.isFinite
+            ? constraints.maxWidth
+            : 300.0;
 
-        SizedBox(height: 16),
-        DropdownMenu(
-          width: 300,
-          hintText: "Sinfni tanlang",
-          onSelected: (value) {
-            setState(() {
-              selectedGrade = value;
-            });
-          },
-          dropdownMenuEntries: [
-            DropdownMenuEntry(value: 7, label: "7-sinf"),
-            DropdownMenuEntry(value: 8, label: "8-sinf"),
-            DropdownMenuEntry(value: 9, label: "9-sinf"),
-            DropdownMenuEntry(value: 10, label: "10-sinf"),
-            DropdownMenuEntry(value: 11, label: "11-sinf"),
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "Qaysi sinf uchun xujjat topshirmoqchisiz?",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              textAlign: TextAlign.start,
+            ),
+            SizedBox(height: 16),
+            SizedBox(height: 16),
+            DropdownMenu(
+              width: dropdownWidth,
+              hintText: "Sinfni tanlang",
+              onSelected: (value) {
+                setState(() {
+                  selectedGrade = value;
+                });
+              },
+              dropdownMenuEntries: [
+                DropdownMenuEntry(value: 7, label: "7-sinf"),
+                DropdownMenuEntry(value: 8, label: "8-sinf"),
+                DropdownMenuEntry(value: 9, label: "9-sinf"),
+                DropdownMenuEntry(value: 10, label: "10-sinf"),
+                DropdownMenuEntry(value: 11, label: "11-sinf"),
+              ],
+            ),
+            SizedBox(height: 24),
+            CustomElevatedButton(
+              isLoading: isLoading,
+              onPressed: selectedGrade == null
+                  ? null
+                  : () async {
+                      context.read<FormBloc>().add(
+                        GradeChanged(selectedGrade!),
+                      );
+                      widget.onNext?.call();
+                    },
+              text: "Keyingisi",
+            ),
           ],
-        ),
-        SizedBox(height: 24),
-        CustomElevatedButton(
-          isLoading: isLoading,
-          onPressed: selectedGrade == null
-              ? null
-              : () async {
-                  context.read<FormBloc>().add(GradeChanged(selectedGrade!));
-                  widget.onNext?.call();
-                },
-          text: "Keyingisi",
-        ),
-      ],
+        );
+      },
     );
   }
 }

@@ -51,8 +51,10 @@ class _HomeSelectingState extends State<HomeSelecting>
           maxLines: 2,
         ),
         SizedBox(height: 24),
-        OverflowBar(
+        Wrap(
+          alignment: WrapAlignment.center,
           spacing: 16,
+          runSpacing: 12,
           children: [
             CustomOutlinedButton(
               width: 150,
@@ -67,7 +69,9 @@ class _HomeSelectingState extends State<HomeSelecting>
               onPressed: (homeController.text.isEmpty)
                   ? null
                   : () async {
-                      context.read<FormBloc>().add(HomeChanged(homeController.text));
+                      context.read<FormBloc>().add(
+                        HomeChanged(homeController.text),
+                      );
                       widget.onNext?.call();
                     },
               text: "Keyingisi",

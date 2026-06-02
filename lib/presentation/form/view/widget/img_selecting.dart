@@ -1,13 +1,16 @@
 import 'dart:typed_data';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class ImgSelecting extends StatefulWidget {
-  final Uint8List? image;
+  final bool isLoading;
+  final PlatformFile? image;
   final void Function() onPressed;
   final void Function()? onCencel;
 
   const ImgSelecting({
+    required this.isLoading,
     super.key,
     required this.onPressed,
     this.image,
@@ -19,7 +22,7 @@ class ImgSelecting extends StatefulWidget {
 }
 
 class _ImgSelectingState extends State<ImgSelecting> {
-  Uint8List? get _fileBytes => widget.image;
+  Uint8List? get _fileBytes => widget.image?.bytes;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +90,62 @@ class _ImgSelectingState extends State<ImgSelecting> {
                       ],
                     ),
 
-                    Expanded(child: SizedBox()),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.image?.name ?? '',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: Color(0xFF1E293B),
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            widget.image != null ? _formatSize(widget.image!.size) : '',
+                            style: const TextStyle(
+                              color: Color(0xFF94A3B8),
+                              fontSize: 12,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            "Almashtirish uchun bosing",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          if (widget.isLoading) ...[
+                            const SizedBox(height: 8),
+                            Row(
+                              children: const [
+                                SizedBox(
+                                  width: 16,
+                                  height: 16,
+                                  child: CircularProgressIndicator(strokeWidth: 2),
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  "Yuklanmoqda...",
+                                  style: TextStyle(
+                                    color: Color(0xFF64748B),
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
                   ],
                 )
               : Center(
@@ -120,5 +178,13 @@ class _ImgSelectingState extends State<ImgSelecting> {
         ),
       ),
     );
+  }
+  
+
+  String _formatSize(int bytes) {
+    if (bytes < 1024 * 1024) {
+      return '${(bytes / 1024).toStringAsFixed(1)} KB';
+    }
+    return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
   }
 }

@@ -47,8 +47,10 @@ class _PhoneNumberSelectingState extends State<PhoneNumberSelecting>
         SizedBox(height: 16),
         PhoneNumberField(controller: phoneNumberController),
         SizedBox(height: 24),
-        OverflowBar(
+        Wrap(
+          alignment: WrapAlignment.center,
           spacing: 16,
+          runSpacing: 12,
           children: [
             CustomOutlinedButton(
               width: 140,
@@ -63,7 +65,11 @@ class _PhoneNumberSelectingState extends State<PhoneNumberSelecting>
               onPressed: (phoneNumberController.text.length < 12)
                   ? null
                   : () async {
-                      context.read<FormBloc>().add(PhoneNumberChanged("+998-${phoneNumberController.text}"));
+                      context.read<FormBloc>().add(
+                        PhoneNumberChanged(
+                          "+998-${phoneNumberController.text}",
+                        ),
+                      );
                       widget.onNext?.call();
                     },
               text: "Keyingisi",

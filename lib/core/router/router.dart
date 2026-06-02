@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tiiame/presentation/auth/log_in/view/log_in_page.dart';
 import 'package:tiiame/presentation/auth/sign_up/view/sign_up_page.dart';
 import 'package:tiiame/presentation/form/view/form_page.dart';
+import 'package:tiiame/presentation/main_page/view/home_page.dart';
 
 final router = GoRouter(
   initialLocation: '/',
@@ -15,7 +16,7 @@ final router = GoRouter(
   ),
 
   routes: [
-    GoRoute(path: '/', builder: (context, state) => const Scaffold(body: Center(child: Text('Home Page')))),
+    GoRoute(path: '/', builder: (context, state) => const HomePage()),
     GoRoute(path: '/sign-up', builder: (context, state) => const SignUpPage()),
     GoRoute(path: '/log-in', builder: (context, state) => const LogInPage()),
     GoRoute(path: '/form', builder: (context, state) => const FormPage()),

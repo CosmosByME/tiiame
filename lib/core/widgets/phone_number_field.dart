@@ -33,7 +33,7 @@ class _PhoneNumberFieldState extends State<PhoneNumberField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 280,
+      width: double.infinity,
       height: 53,
       margin: EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(

@@ -12,6 +12,7 @@ import 'package:tiiame/presentation/form/bloc/form_bloc.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
   await FirebaseAuth.instance.authStateChanges().first;
   // Bloc.observer = SimpleBlocObserver();
   runApp(const MyApp());

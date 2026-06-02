@@ -3,11 +3,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class DocSelecting extends StatelessWidget {
+  final bool isLoading;
   final PlatformFile? doc;
   final void Function() onPressed;
   final void Function()? onCencel;
 
   const DocSelecting({
+    required this.isLoading,
     super.key,
     required this.onPressed,
     this.doc,
@@ -152,6 +154,26 @@ class DocSelecting extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
+              if (isLoading) ...[
+                            const SizedBox(height: 8),
+                            Row(
+                              children: const [
+                                SizedBox(
+                                  width: 16,
+                                  height: 16,
+                                  child: CircularProgressIndicator(strokeWidth: 2),
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  "Yuklanmoqda...",
+                                  style: TextStyle(
+                                    color: Color(0xFF64748B),
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
             ],
           ),
         ),

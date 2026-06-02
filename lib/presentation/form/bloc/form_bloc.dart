@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mime/mime.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -30,8 +31,9 @@ class FormBloc extends Bloc<FormEvent, FormState> {
   }
 
   void onGradeChanged(GradeChanged event, Emitter<FormState> emit) {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     emit(
-      FormState(studentData: state.studentData!.copyWith(grade: event.grade)),
+      FormState(studentData: state.studentData!.copyWith(grade: event.grade, uid: uid)),
     );
   }
 
@@ -74,7 +76,7 @@ class FormBloc extends Bloc<FormEvent, FormState> {
       final url = await DriveStorageService.uploadFile(
         folder: "class${state.studentData!.grade}",
         fileName:
-            "${state.studentData!.firstName}_${state.studentData!.lastName}_profile.${event.pictureUrl.name.split('.').last}",
+            "${state.studentData!.firstName}_${state.studentData!.lastName}_${state.studentData!.uid}_profile.${event.pictureUrl.name.split('.').last}",
         bytes: event.pictureUrl.bytes!,
         mimeType: lookupMimeType(event.pictureUrl.name) ?? "image/jpeg",
       );
@@ -104,7 +106,7 @@ class FormBloc extends Bloc<FormEvent, FormState> {
       final url = await DriveStorageService.uploadFile(
         folder: "class${state.studentData!.grade}",
         fileName:
-            "${state.studentData!.firstName}_${state.studentData!.lastName}_idcard.${event.idCardUrl.name.split('.').last}",
+            "${state.studentData!.firstName}_${state.studentData!.lastName}_${state.studentData!.uid}_idcard.${event.idCardUrl.name.split('.').last}",
         bytes: event.idCardUrl.bytes!,
         mimeType: lookupMimeType(event.idCardUrl.name) ?? "image/jpeg",
       );

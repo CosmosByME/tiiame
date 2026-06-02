@@ -1,4 +1,5 @@
 class StudentData {
+  final String? uid;
   final String? firstName;
   final String? lastName;
   final String? phoneNumber;
@@ -10,6 +11,7 @@ class StudentData {
   final DateTime? lastUpdated;
 
   StudentData({
+    this.uid,
     this.firstName,
     this.lastName,
     this.phoneNumber,
@@ -23,6 +25,7 @@ class StudentData {
 
   factory StudentData.fromJson(Map<String, dynamic> json) {
     return StudentData(
+      uid: json['uid'] as String?,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
@@ -46,10 +49,12 @@ class StudentData {
       'home': home,
       'photoUrl': photoUrl,
       'passportUrl': passportUrl,
+      'uid': uid,
     };
   }
 
   StudentData copyWith({
+    String? uid,
     String? firstName,
     String? lastName,
     String? phoneNumber,
@@ -61,6 +66,7 @@ class StudentData {
     String? home,
   }) {
     return StudentData(
+      uid: uid ?? this.uid,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       phoneNumber: phoneNumber ?? this.phoneNumber,

@@ -8,9 +8,10 @@ import 'package:tiiame/presentation/form/bloc/form_bloc.dart';
 import 'package:tiiame/presentation/form/view/widget/img_selecting.dart';
 
 class PictureSelecting extends StatefulWidget {
+  final bool isLoading;
   final VoidCallback? onPrevious;
   final VoidCallback? onNext;
-  const PictureSelecting({super.key, this.onPrevious, this.onNext});
+  const PictureSelecting({super.key, this.onPrevious, this.onNext, required this.isLoading});
 
   @override
   State<PictureSelecting> createState() => _PictureSelectingState();
@@ -31,7 +32,7 @@ class _PictureSelectingState extends State<PictureSelecting>
       listener: (context, state) {
         if (state.isUploaded) {
           widget.onNext?.call();
-        } 
+        }
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -45,28 +46,28 @@ class _PictureSelectingState extends State<PictureSelecting>
           SizedBox(height: 16),
 
           SizedBox(height: 16),
-          SizedBox(
-            width: 400,
-            child: ImgSelecting(
-              onPressed: () async {
-                final file = await FileService().pickImage();
-                if (file != null) {
-                  setState(() {
-                    selectedImage = file;
-                  });
-                }
-              },
-              image: selectedImage?.bytes,
-              onCencel: () {
+          ImgSelecting(
+            isLoading: widget.isLoading,
+            onPressed: () async {
+              final file = await FileService().pickImage();
+              if (file != null) {
                 setState(() {
-                  selectedImage = null;
+                  selectedImage = file;
                 });
-              },
-            ),
+              }
+            },
+            image: selectedImage,
+            onCencel: () {
+              setState(() {
+                selectedImage = null;
+              });
+            },
           ),
           SizedBox(height: 24),
-          OverflowBar(
+          Wrap(
+            alignment: WrapAlignment.center,
             spacing: 16,
+            runSpacing: 12,
             children: [
               CustomOutlinedButton(
                 width: 150,

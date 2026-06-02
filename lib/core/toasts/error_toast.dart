@@ -1,9 +1,6 @@
-import 'dart:ui';
-
 import 'package:fluttertoast/fluttertoast.dart';
 
 void showErrorToast(String message) {
-  Fluttertoast.cancel(); // Cancel any existing toasts before showing a new one
   Fluttertoast.showToast(
     msg: message,
     toastLength: Toast.LENGTH_SHORT,

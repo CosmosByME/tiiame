@@ -53,8 +53,10 @@ class _NameSurnameSelectingState extends State<NameSurnameSelecting>
         SizedBox(height: 16),
         CustomTextField(controller: surnameController, hint: "Familiya"),
         SizedBox(height: 24),
-        OverflowBar(
+        Wrap(
+          alignment: WrapAlignment.center,
           spacing: 16,
+          runSpacing: 12,
           children: [
             CustomOutlinedButton(
               width: 150,

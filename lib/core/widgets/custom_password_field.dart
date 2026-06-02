@@ -18,7 +18,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 300,
+      width: double.infinity,
       child: TextField(
         key: widget.key,
         controller: widget.controller,

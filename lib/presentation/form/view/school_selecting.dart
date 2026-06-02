@@ -47,8 +47,10 @@ class _SchoolSelectingState extends State<SchoolSelecting>
         SizedBox(height: 16),
         CustomTextField(controller: schoolController, hint: "Maktab nomi"),
         SizedBox(height: 24),
-        OverflowBar(
+        Wrap(
+          alignment: WrapAlignment.center,
           spacing: 16,
+          runSpacing: 12,
           children: [
             CustomOutlinedButton(
               width: 150,
@@ -63,7 +65,9 @@ class _SchoolSelectingState extends State<SchoolSelecting>
               onPressed: (schoolController.text.isEmpty)
                   ? null
                   : () async {
-                      context.read<FormBloc>().add(SchoolChanged(schoolController.text));
+                      context.read<FormBloc>().add(
+                        SchoolChanged(schoolController.text),
+                      );
                       widget.onNext?.call();
                     },
               text: "Keyingisi",

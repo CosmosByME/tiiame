@@ -1,7 +1,8 @@
 import 'package:expandable_page_view/expandable_page_view.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide FormState;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiiame/presentation/auth/log_in/bloc/login_bloc.dart';
+import 'package:tiiame/presentation/form/bloc/form_bloc.dart';
 import 'package:tiiame/presentation/form/view/grade_selecting.dart';
 import 'package:tiiame/presentation/form/view/home_selecting.dart';
 import 'package:tiiame/presentation/form/view/id_card_selecting.dart';
@@ -56,53 +57,65 @@ class _FormPageState extends State<FormPage> {
         body: DecoratedBox(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("background/photo1.jpg"),
+              image: AssetImage("assets/background/photo1.jpg"),
               fit: BoxFit.cover,
             ),
           ),
           child: Center(
             child: SingleChildScrollView(
-              child: Card(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(24.0),
-                  child: SizedBox(
-                    width: 400,
-                    child: ExpandablePageView(
-                      controller: _pageController,
-                      physics: NeverScrollableScrollPhysics(),
-                      children: [
-                        GradeSelecting(onNext: nextPage),
-                        NameSurnameSelecting(
-                          onNext: nextPage,
-                          onPrevious: previousPage,
-                        ),
-
-                        SchoolSelecting(
-                          onNext: nextPage,
-                          onPrevious: previousPage,
-                        ),
-                        PhoneNumberSelecting(
-                          onNext: nextPage,
-                          onPrevious: previousPage,
-                        ),
-                        HomeSelecting(
-                          onNext: nextPage,
-                          onPrevious: previousPage,
-                        ),
-
-                        PictureSelecting(
-                          onNext: nextPage,
-                          onPrevious: previousPage,
-                        ),
-                        IdCardSelecting(
-                          onNext: nextPage,
-                          onPrevious: previousPage,
-                        ),
-                      ],
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 20),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 560),
+                child: Card(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ExpandablePageView(
+                        controller: _pageController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          GradeSelecting(onNext: nextPage),
+                          NameSurnameSelecting(
+                            onNext: nextPage,
+                            onPrevious: previousPage,
+                          ),
+                          SchoolSelecting(
+                            onNext: nextPage,
+                            onPrevious: previousPage,
+                          ),
+                          PhoneNumberSelecting(
+                            onNext: nextPage,
+                            onPrevious: previousPage,
+                          ),
+                          HomeSelecting(
+                            onNext: nextPage,
+                            onPrevious: previousPage,
+                          ),
+                          BlocBuilder<FormBloc, FormState>(
+                            builder: (context, state) {
+                              return PictureSelecting(
+                                isLoading: state.isLoading,
+                                onNext: nextPage,
+                                onPrevious: previousPage,
+                              );
+                            },
+                          ),
+                          BlocBuilder<FormBloc, FormState>(
+                            builder: (context, state) {
+                              return IdCardSelecting(
+                                isLoading: state.isLoading,
+                                onNext: nextPage,
+                                onPrevious: previousPage,
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

@@ -1,10 +1,10 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart' hide FormState;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tiiame/core/services/file_service.dart';
 import 'package:tiiame/core/widgets/custom_elevated_button.dart';
 import 'package:tiiame/core/widgets/custom_outlined_button.dart';
+import 'package:tiiame/core/widgets/info_widget.dart';
 import 'package:tiiame/presentation/form/bloc/form_bloc.dart';
 import 'package:tiiame/presentation/form/view/widget/doc_selecting.dart';
 
@@ -12,7 +12,12 @@ class IdCardSelecting extends StatefulWidget {
   final bool isLoading;
   final VoidCallback? onPrevious;
   final VoidCallback? onNext;
-  const IdCardSelecting({super.key, required this.isLoading, this.onPrevious, this.onNext});
+  const IdCardSelecting({
+    super.key,
+    required this.isLoading,
+    this.onPrevious,
+    this.onNext,
+  });
 
   @override
   State<IdCardSelecting> createState() => _IdCardSelectingState();
@@ -31,14 +36,20 @@ class _IdCardSelectingState extends State<IdCardSelecting>
     super.build(context);
     return BlocListener<FormBloc, FormState>(
       listener: (context, state) {
-        if (state.isSuccess) {
-          context.go('/');
+        if (state.isUploaded) {
+          widget.onNext?.call();
         }
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const InfoWidget(
+            icon: 'ℹ️',
+            text:
+                'Guvohnoma yoki ID kartaning aniq rasm/PDF faylini yuklang. Fayl hajmini kichikroq saqlang.',
+          ),
+          const SizedBox(height: 16),
           Text(
             "O'quvchining tug'ilganlik guvohnomasini yoki ID kartasini yuklang",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),

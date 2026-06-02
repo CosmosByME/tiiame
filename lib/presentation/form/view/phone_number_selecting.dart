@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiiame/core/widgets/custom_elevated_button.dart';
 import 'package:tiiame/core/widgets/custom_outlined_button.dart';
+import 'package:tiiame/core/widgets/info_widget.dart';
 import 'package:tiiame/core/widgets/phone_number_field.dart';
 import 'package:tiiame/presentation/form/bloc/form_bloc.dart';
 
@@ -37,6 +38,12 @@ class _PhoneNumberSelectingState extends State<PhoneNumberSelecting>
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        const InfoWidget(
+          icon: 'ℹ️',
+          text:
+              'Telefon raqami faqat raqamlardan iborat bo\'lsin. Kod avtomatik ravishda +998 qilib qo\'shiladi.',
+        ),
+        const SizedBox(height: 16),
         Text(
           "Telefon raqamingizni kiriting",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),

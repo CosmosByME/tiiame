@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
   final double? width;
@@ -7,6 +8,9 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final bool enabled;
   final TextInputType keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
+  final int? maxLength;
+  final TextCapitalization textCapitalization;
   const CustomTextField({
     super.key,
     required this.hint,
@@ -15,6 +19,9 @@ class CustomTextField extends StatelessWidget {
     this.width,
     this.enabled = true,
     this.keyboardType = TextInputType.text,
+    this.inputFormatters,
+    this.maxLength,
+    this.textCapitalization = TextCapitalization.none,
   });
 
   @override
@@ -26,6 +33,9 @@ class CustomTextField extends StatelessWidget {
         enabled: enabled,
         readOnly: !enabled,
         keyboardType: keyboardType,
+        textCapitalization: textCapitalization,
+        inputFormatters: inputFormatters,
+        maxLength: maxLength,
         controller: controller,
         maxLines: maxLines,
         style: TextStyle(
@@ -39,6 +49,7 @@ class CustomTextField extends StatelessWidget {
           fillColor: enabled ? Colors.white : const Color(0xFFF8FAFC),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           hintStyle: TextStyle(fontSize: 16, color: Colors.grey.shade600),
+          counterText: '',
         ),
       ),
     );

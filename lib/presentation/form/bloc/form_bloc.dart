@@ -33,7 +33,9 @@ class FormBloc extends Bloc<FormEvent, FormState> {
   void onGradeChanged(GradeChanged event, Emitter<FormState> emit) {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     emit(
-      FormState(studentData: state.studentData!.copyWith(grade: event.grade, uid: uid)),
+      FormState(
+        studentData: state.studentData!.copyWith(grade: event.grade, uid: uid),
+      ),
     );
   }
 
@@ -123,7 +125,6 @@ class FormBloc extends Bloc<FormEvent, FormState> {
       emit(FormState(studentData: state.studentData, isUploaded: false));
 
       debugPrint("${state.studentData!.toJson()}");
-      add(FormSubmitted());
     } on Exception catch (e) {
       debugPrint(e.toString());
       emit(FormState(studentData: state.studentData, isLoading: false));
@@ -132,9 +133,20 @@ class FormBloc extends Bloc<FormEvent, FormState> {
 
   void onSubmit(FormSubmitted event, Emitter<FormState> emit) async {
     try {
-      emit(FormState(studentData: state.studentData!.copyWith(lastUpdated: DateTime.now()), isLoading: true));
+      emit(
+        FormState(
+          studentData: state.studentData!.copyWith(lastUpdated: DateTime.now()),
+          isLoading: true,
+        ),
+      );
       await FirestoreService().saveStudentProfile(state.studentData!);
-      emit(FormState(studentData: state.studentData, isLoading: false, isSuccess: true));
+      emit(
+        FormState(
+          studentData: state.studentData,
+          isLoading: false,
+          isSuccess: true,
+        ),
+      );
     } on Exception catch (e) {
       debugPrint(e.toString());
       emit(FormState(studentData: state.studentData, isLoading: false));

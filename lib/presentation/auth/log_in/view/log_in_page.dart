@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/services.dart';
 import 'package:tiiame/core/widgets/custom_elevated_button.dart';
 import 'package:tiiame/core/widgets/custom_outlined_button.dart';
 import 'package:tiiame/core/widgets/custom_password_field.dart';
 import 'package:tiiame/core/widgets/custom_text_field.dart';
+import 'package:tiiame/core/widgets/info_widget.dart';
 import 'package:tiiame/presentation/auth/log_in/bloc/login_bloc.dart';
 
 class LogInPage extends StatefulWidget {
@@ -15,14 +17,14 @@ class LogInPage extends StatefulWidget {
 }
 
 class _LogInPageState extends State<LogInPage> {
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    _phoneController.addListener(() {
+    _loginController.addListener(() {
       setState(() {});
     });
     _passwordController.addListener(() {
@@ -80,14 +82,21 @@ class _LogInPageState extends State<LogInPage> {
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 24),
+                        const InfoWidget(
+                          icon: 'ℹ️',
+                          text:
+                              'Login uchun telefon raqamingizni faqat raqamlar bilan kiriting. Parol kamida 6 ta belgidan iborat bo\'lsin.',
+                        ),
+                        const SizedBox(height: 16),
                         CustomTextField(
                           hint: "Login",
-                          controller: _phoneController,
+                          controller: _loginController,
                         ),
                         const SizedBox(height: 16),
                         CustomPasswordField(
                           hint: "Parol",
                           controller: _passwordController,
+                          maxLength: 32,
                         ),
                         const SizedBox(height: 24),
                         BlocBuilder<LoginBloc, LoginState>(
@@ -96,14 +105,14 @@ class _LogInPageState extends State<LogInPage> {
                               text: "Kirish",
                               isLoading: state.isLoading,
                               onPressed:
-                                  _phoneController.text.isEmpty ||
-                                      _passwordController.text.isEmpty
+                                  _loginController.text.isEmpty ||
+                                      _passwordController.text.length < 6
                                   ? null
                                   : () {
                                       context.read<LoginBloc>().add(
                                         LoginButtonPressed(
                                           email:
-                                              "${_phoneController.text.replaceAll(" ", "")}@tiiame.com",
+                                              "${_loginController.text.replaceAll(" ", "")}@tiiame.com",
                                           password: _passwordController.text,
                                         ),
                                       );

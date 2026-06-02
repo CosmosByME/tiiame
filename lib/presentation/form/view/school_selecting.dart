@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiiame/core/widgets/custom_elevated_button.dart';
 import 'package:tiiame/core/widgets/custom_outlined_button.dart';
 import 'package:tiiame/core/widgets/custom_text_field.dart';
+import 'package:tiiame/core/widgets/info_widget.dart';
 import 'package:tiiame/presentation/form/bloc/form_bloc.dart';
 
 class SchoolSelecting extends StatefulWidget {
@@ -37,6 +38,11 @@ class _SchoolSelectingState extends State<SchoolSelecting>
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        const InfoWidget(
+          icon: 'ℹ️',
+          text: 'Maktab nomini to\'liq yozing. Qisqartmalardan qoching.',
+        ),
+        const SizedBox(height: 16),
         Text(
           "Qaysi maktabda o'qiysiz?",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
@@ -45,7 +51,12 @@ class _SchoolSelectingState extends State<SchoolSelecting>
         SizedBox(height: 16),
 
         SizedBox(height: 16),
-        CustomTextField(controller: schoolController, hint: "Maktab nomi"),
+        CustomTextField(
+          controller: schoolController,
+          hint: "Maktab nomi",
+          textCapitalization: TextCapitalization.words,
+          maxLength: 80,
+        ),
         SizedBox(height: 24),
         Wrap(
           alignment: WrapAlignment.center,

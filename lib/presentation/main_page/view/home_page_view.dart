@@ -313,11 +313,10 @@ class _PassportSection extends StatelessWidget {
           const SizedBox(height: 8),
           LaunchableFileTile(
             title: 'Passport',
-            fileName:
-                "${controller.studentData?.firstName ?? 'student'}_${controller.studentData?.lastName ?? 'passport'}_${controller.studentData?.uid}_idcard.pdf",
+            fileName: viewName,
             fileSizeLabel: fileSizeLabel,
-            fileTypeLabel: _fileTypeLabel("pdf"),
-            icon: _fileIcon(".pdf"),
+            fileTypeLabel: _fileTypeLabel(viewName),
+            icon: _fileIcon(viewName),
             url: controller.pendingPassportFile == null
                 ? controller.studentData?.passportUrl
                 : null,

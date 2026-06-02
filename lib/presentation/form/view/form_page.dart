@@ -9,6 +9,7 @@ import 'package:tiiame/presentation/form/view/id_card_selecting.dart';
 import 'package:tiiame/presentation/form/view/name_surname_selecting.dart';
 import 'package:tiiame/presentation/form/view/phone_number_selecting.dart';
 import 'package:tiiame/presentation/form/view/picture_selecting.dart';
+import 'package:tiiame/presentation/form/view/review_submission_selecting.dart';
 import 'package:tiiame/presentation/form/view/school_selecting.dart';
 
 class FormPage extends StatefulWidget {
@@ -114,6 +115,7 @@ class _FormPageState extends State<FormPage> {
                               );
                             },
                           ),
+                          ReviewSubmissionSelecting(onPrevious: previousPage),
                         ],
                       ),
                     ),

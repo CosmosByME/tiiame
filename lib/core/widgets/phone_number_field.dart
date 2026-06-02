@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class PhoneNumberField extends StatefulWidget {
@@ -69,12 +70,14 @@ class _PhoneNumberFieldState extends State<PhoneNumberField> {
                 fontWeight: FontWeight.bold,
               ),
               keyboardType: TextInputType.phone,
+              inputFormatters: [
+                maskFormatter,
+              ],
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: "Telefon raqami",
                 hintStyle: TextStyle(color: Colors.grey.shade600, fontSize: 15),
               ),
-              inputFormatters: [maskFormatter],
             ),
           ),
         ],

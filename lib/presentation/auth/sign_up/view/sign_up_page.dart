@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/services.dart';
 import 'package:tiiame/core/widgets/custom_elevated_button.dart';
 import 'package:tiiame/core/widgets/custom_outlined_button.dart';
 import 'package:tiiame/core/widgets/custom_password_field.dart';
 import 'package:tiiame/core/widgets/custom_text_field.dart';
+import 'package:tiiame/core/widgets/info_widget.dart';
 import 'package:tiiame/presentation/auth/sign_up/bloc/signup_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -15,7 +17,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
@@ -24,7 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   void initState() {
     super.initState();
-    _phoneController.addListener(() {
+    _loginController.addListener(() {
       setState(() {});
     });
     _passwordController.addListener(() {
@@ -85,19 +87,27 @@ class _SignUpPageState extends State<SignUpPage> {
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 24),
+                        const InfoWidget(
+                          icon: 'ℹ️',
+                          text:
+                              'Telefon raqamini faqat raqamlar bilan kiriting. Parolni 6-32 belgi orasida yozing va takrorlang.',
+                        ),
+                        const SizedBox(height: 16),
                         CustomTextField(
                           hint: "Login",
-                          controller: _phoneController,
+                          controller: _loginController,
                         ),
                         const SizedBox(height: 16),
                         CustomPasswordField(
                           hint: "Parol",
                           controller: _passwordController,
+                          maxLength: 32,
                         ),
                         const SizedBox(height: 16),
                         CustomPasswordField(
                           hint: "Parolni takrorlang",
                           controller: _confirmPasswordController,
+                          maxLength: 32,
                         ),
                         const SizedBox(height: 24),
                         BlocBuilder<SignupBloc, SignupState>(
@@ -106,9 +116,9 @@ class _SignUpPageState extends State<SignUpPage> {
                               text: "Ro'yxatdan o'tish",
                               isLoading: state.isLoading,
                               onPressed:
-                                  _phoneController.text.isEmpty ||
-                                      _passwordController.text.isEmpty ||
-                                      _confirmPasswordController.text.isEmpty ||
+                                  _loginController.text.isEmpty ||
+                                      _passwordController.text.length < 6 ||
+                                      _confirmPasswordController.text.length < 6 ||
                                       _passwordController.text !=
                                           _confirmPasswordController.text
                                   ? null
@@ -116,7 +126,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       context.read<SignupBloc>().add(
                                         SignupButtonPressed(
                                           email:
-                                              "${_phoneController.text.replaceAll(" ", "")}@tiiame.com",
+                                              "${_loginController.text.replaceAll(" ", "")}@tiiame.com",
                                           password: _passwordController.text,
                                           confirmPassword:
                                               _confirmPasswordController.text,
@@ -130,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         CustomOutlinedButton(
                           text: "Kirish",
                           onPressed: () {
-                            context.go("/log-in");
+                            context.push("/log-in");
                           },
                         ),
                       ],

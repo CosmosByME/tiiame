@@ -106,11 +106,11 @@ class FirestoreService {
         .set(studentMap, SetOptions(merge: true));
 
     // 2. Instantly sync the edit over to Google Sheets
-    await _syncEditToGoogleSheets(studentData, uid, classBucket);
+    await syncEditToGoogleSheets(studentData, uid, classBucket);
   }
 
   /// PRIVATE HELPER: Handles the network call to your Google Apps Script
-  Future<void> _syncEditToGoogleSheets(StudentData studentData, String uid, String classBucket) async {
+  Future<void> syncEditToGoogleSheets(StudentData studentData, String uid, String classBucket) async {
     final scriptUrl = Uri.parse('https://script.google.com/macros/s/AKfycbz10UyOC7LgQMV_uoYG0YAbD8OaDIv2gA_bg0iAx9aCH-psaQDG6Pr3nWGGEJYXsMAT/exec');
 
     try {

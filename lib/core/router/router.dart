@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tiiame/presentation/auth/log_in/view/log_in_page.dart';
 import 'package:tiiame/presentation/auth/sign_up/view/sign_up_page.dart';
 import 'package:tiiame/presentation/form/view/form_page.dart';
+import 'package:tiiame/presentation/form/view/submission_success_page.dart';
 import 'package:tiiame/presentation/main_page/view/home_page.dart';
 
 final router = GoRouter(
@@ -20,6 +21,10 @@ final router = GoRouter(
     GoRoute(path: '/sign-up', builder: (context, state) => const SignUpPage()),
     GoRoute(path: '/log-in', builder: (context, state) => const LogInPage()),
     GoRoute(path: '/form', builder: (context, state) => const FormPage()),
+    GoRoute(
+      path: '/registration-success',
+      builder: (context, state) => const SubmissionSuccessPage(),
+    ),
   ],
 
   redirect: (context, state) {

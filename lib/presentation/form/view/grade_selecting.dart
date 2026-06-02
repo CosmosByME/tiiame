@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiiame/core/widgets/custom_elevated_button.dart';
+import 'package:tiiame/core/widgets/info_widget.dart';
 import 'package:tiiame/presentation/form/bloc/form_bloc.dart';
 
 class GradeSelecting extends StatefulWidget {
@@ -32,6 +33,11 @@ class _GradeSelectingState extends State<GradeSelecting>
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const InfoWidget(
+              icon: 'ℹ️',
+              text: 'Faqat o\'zingiz o\'qimoqchi bo\'lgan sinfni tanlang.',
+            ),
+            const SizedBox(height: 16),
             Text(
               "Qaysi sinf uchun xujjat topshirmoqchisiz?",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),

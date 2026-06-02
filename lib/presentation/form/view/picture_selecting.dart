@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tiiame/core/services/file_service.dart';
 import 'package:tiiame/core/widgets/custom_elevated_button.dart';
 import 'package:tiiame/core/widgets/custom_outlined_button.dart';
+import 'package:tiiame/core/widgets/info_widget.dart';
 import 'package:tiiame/presentation/form/bloc/form_bloc.dart';
 import 'package:tiiame/presentation/form/view/widget/img_selecting.dart';
 
@@ -11,7 +12,12 @@ class PictureSelecting extends StatefulWidget {
   final bool isLoading;
   final VoidCallback? onPrevious;
   final VoidCallback? onNext;
-  const PictureSelecting({super.key, this.onPrevious, this.onNext, required this.isLoading});
+  const PictureSelecting({
+    super.key,
+    this.onPrevious,
+    this.onNext,
+    required this.isLoading,
+  });
 
   @override
   State<PictureSelecting> createState() => _PictureSelectingState();
@@ -38,6 +44,12 @@ class _PictureSelectingState extends State<PictureSelecting>
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const InfoWidget(
+            icon: 'ℹ️',
+            text:
+                'Yaqin 2 oy ichidagi aniq rasmni yuklang. Faqat rasm fayllari qabul qilinadi.',
+          ),
+          const SizedBox(height: 16),
           Text(
             "Oxirgi 2 oy davomida tushgan fotosuratingizni joylang",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),

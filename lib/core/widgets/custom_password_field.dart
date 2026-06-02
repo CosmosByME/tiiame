@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomPasswordField extends StatefulWidget {
   final String hint;
   final TextEditingController controller;
+  final int? maxLength;
   const CustomPasswordField({
     super.key,
     required this.hint,
     required this.controller,
+    this.maxLength,
   });
 
   @override
@@ -23,6 +26,10 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
         key: widget.key,
         controller: widget.controller,
         obscureText: _obscureText,
+        maxLength: widget.maxLength,
+        inputFormatters: widget.maxLength == null
+            ? null
+            : [LengthLimitingTextInputFormatter(widget.maxLength)],
         style: TextStyle(
           fontSize: 16,
           color: Color(0xFF0F172A),

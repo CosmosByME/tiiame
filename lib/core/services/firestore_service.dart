@@ -12,7 +12,7 @@ class FirestoreService {
     if (currentUser == null) return;
 
     String uid = currentUser.uid;
-    String classBucket = "class${studentData.grade}";
+    String classBucket = "class${studentData.grade ?? 7}";
 
     // 🔥 FIX: Extract the map and explicitly force the 'uid' field into it
     final Map<String, dynamic> studentMap = studentData.toJson();

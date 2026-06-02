@@ -115,7 +115,7 @@ class _LogInPageState extends State<LogInPage> {
                         CustomOutlinedButton(
                           text: "Ro'yxatdan o'tish",
                           onPressed: () {
-                            context.go("/sign-up");
+                            context.pop();
                           },
                         ),
                       ],
